@@ -1,0 +1,39 @@
+{
+  "name": "Instagram API Example App",
+  "description": "An example Instagram App.",
+  "repository": "https://github.com/fbsamples/original-coast-clothing-ig",
+  "logo": "https://raw.githubusercontent.com/fbsamples/original-coast-clothing-ig/main/public/logo.svg",
+  "keywords": [
+    "node",
+    "express",
+    "instagram",
+    "facebook"
+  ],
+  "env": {
+    "APP_ID": {
+      "description": "ID of your Facebook App. See: https://developers.facebook.com/docs/development/create-an-app/app-dashboard#app-id",
+      "value": ""
+    },
+    "APP_SECRET": {
+      "description": "The Secret of your Facebook App. Your App secret can be found in App Dashboard -> Settings -> Basic",
+      "value": ""
+    },
+    "PAGE_ID": {
+      "description": "ID of your Facebook Page which is connected to Instagram",
+      "value": ""
+    },
+    "PAGE_ACCESS_TOKEN": {
+      "description": "Page Access Token. See: https://developers.facebook.com/docs/pages/access-tokens/#get-a-page-access-token",
+      "value": ""
+    },
+    "VERIFY_TOKEN": {
+      "description": "An arbitrary string that is used for the webhook verification request. See: https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/",
+      "value": ""
+    },
+    "LOCALE": {
+      "description": "Optional code for experience locale, e.g. `en_US`. Must match a file in locales folder.",
+      "value": "en_US",
+      "required": false
+    }
+  }
+}
