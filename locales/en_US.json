@@ -11,7 +11,7 @@
 		"start_over": "Start over"
 	},
 	"private_reply": {
-		"post": "Thanks for liking our post! How can I help?"
+		"post": "Thanks for liking our post! This is as far as the demo goes. In a production experience, this message would come from a human agent. See https://fb.me/get-sample-oc-ig to learn how to build a similar experience."
 	},
 	"get_started": {
 		"welcome": "Hi {{userName}}! Welcome to Original Coast Clothing where you'll find styles for every occasion.",

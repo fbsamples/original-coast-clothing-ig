@@ -48,7 +48,7 @@ You will need:
 
 You can automatically deploy this project to Heroku or Glitch with these buttons.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://bit.ly/2QQE5Qo) &nbsp; [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://bit.ly/3wB07G1)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://bit.ly/2QQE5Qo) &nbsp; [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button-v2.svg?v=1622676640618)](https://bit.ly/3wB07G1)
 
 Once your server is configured and running, proceed to configuring your webhooks
 
