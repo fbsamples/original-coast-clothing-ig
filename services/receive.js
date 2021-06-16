@@ -218,7 +218,7 @@ module.exports = class Receive {
       tag: "HUMAN_AGENT"
     };
 
-    GraphApi.callSendAPI(requestBody);
+    GraphApi.callSendApi(requestBody);
   }
 
   sendMessage(response, delay = 0) {
@@ -236,7 +236,6 @@ module.exports = class Receive {
       message: response
     };
 
-    setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
+    setTimeout(() => GraphApi.callSendApi(requestBody), delay);
   }
-
 };

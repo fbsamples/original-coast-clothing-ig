@@ -19,7 +19,7 @@ module.exports = class Care {
   constructor(user, webhookEvent) {
     this.user = user;
     this.webhookEvent = webhookEvent;
-    let agentNames = ["Laura", "Stan", "Jorge"];
+    let agentNames = ["Laura", "Stan", "Jorge", "Gary"];
     let randomIndex = Math.floor(Math.random() * agentNames.length);
     this.agentFirstName = agentNames[randomIndex];
   }

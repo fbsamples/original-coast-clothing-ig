@@ -94,7 +94,7 @@ app.post("/webhook", (req, res) => {
     res.status(200).send("EVENT_RECEIVED");
 
     // Iterate over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
+    body.entry.forEach(async function(entry) {
       // Handle Page Changes event
       if ("changes" in entry) {
         let receiveMessage = new Receive();
@@ -110,42 +110,34 @@ app.post("/webhook", (req, res) => {
         return;
       }
 
-      // Get the body of the webhook event
-      let webhookEvent = entry.messaging[0];
+      // Iterate over webhook events - there may be multiple
+      entry.messaging.forEach(async function(webhookEvent) {
+        // Discard uninteresting events
+        if (
+          "message" in webhookEvent &&
+          webhookEvent.message.is_echo === true
+        ) {
+          console.log("Got an echo");
+          return;
+        }
 
-      // Discard uninteresting events
-      if ("message" in webhookEvent && webhookEvent.message.is_echo === true) {
-        console.log("Got an echo");
-        return;
-      }
+        // Get the sender IGSID
+        let senderIgsid = webhookEvent.sender.id;
 
-      // Get the sender IGSID
-      let senderIgsid = webhookEvent.sender.id;
-
-      if (!(senderIgsid in users)) {
-        // First time seeing this user
-        let user = new User(senderIgsid);
-
-        GraphApi.getUserProfile(senderIgsid)
-          .then(userProfile => {
+        if (!(senderIgsid in users)) {
+          // First time seeing this user
+          let user = new User(senderIgsid);
+          let userProfile = await GraphApi.getUserProfile(senderIgsid);
+          if (userProfile) {
             user.setProfile(userProfile);
-          })
-          .catch(error => {
-            // The profile is unavailable
-            console.warn("Profile is unavailable:", error);
-          })
-          .then(() => {
             users[senderIgsid] = user;
-            console.log(`Created new user profile with IGSID: ${senderIgsid}`);
+            console.log(`Created new user profile`);
             console.dir(user);
-            let receiveMessage = new Receive(users[senderIgsid], webhookEvent);
-            return receiveMessage.handleMessage();
-          });
-      } else {
-        // We've seen this user before
+          }
+        }
         let receiveMessage = new Receive(users[senderIgsid], webhookEvent);
         return receiveMessage.handleMessage();
-      }
+      });
     });
   } else if (body.object === "page") {
     // Catch if the event came from Messenger webhook instead of Instagram
@@ -162,14 +154,14 @@ app.post("/webhook", (req, res) => {
 
 // Verify that the callback came from Facebook.
 function verifyRequestSignature(req, res, buf) {
-  var signature = req.headers["x-hub-signature"];
+  const signature = req.headers["x-hub-signature"];
 
   if (!signature) {
     console.warn(`Couldn't find "x-hub-signature" in headers.`);
   } else {
-    var elements = signature.split("=");
-    var signatureHash = elements[1];
-    var expectedHash = crypto
+    const elements = signature.split("=");
+    const signatureHash = elements[1];
+    const expectedHash = crypto
       .createHmac("sha1", config.appSecret)
       .update(buf)
       .digest("hex");
@@ -181,40 +173,44 @@ function verifyRequestSignature(req, res, buf) {
   }
 }
 
-// Check if all environment variables are set
-config.checkEnvVariables();
+async function main() {
+  // Check if all environment variables are set
+  config.checkEnvVariables();
 
-// Set configured locale
-if (config.locale) {
-  i18n.setLocale(config.locale);
+  // Set configured locale
+  if (config.locale) {
+    i18n.setLocale(config.locale);
+  }
+
+  const iceBreakers = [
+    {
+      question: i18n.__("menu.support"),
+      payload: "CARE_SALES"
+    },
+    {
+      question: i18n.__("menu.order"),
+      payload: "SEARCH_ORDER"
+    },
+    {
+      question: i18n.__("menu.help"),
+      payload: "CARE_HELP"
+    },
+    {
+      question: i18n.__("menu.suggestion"),
+      payload: "CURATION"
+    }
+  ];
+
+  // Set our Icebreakers upon launch
+  await GraphApi.setIcebreakers(iceBreakers);
+
+  // Set our page subscriptions
+  await GraphApi.setPageSubscriptions();
+
+  // Listen for requests :)
+  var listener = app.listen(config.port, function() {
+    console.log(`The app is listening on port ${listener.address().port}`);
+  });
 }
 
-const iceBreakers = [
-  {
-    question: i18n.__("menu.support"),
-    payload: "CARE_SALES"
-  },
-  {
-    question: i18n.__("menu.order"),
-    payload: "SEARCH_ORDER"
-  },
-  {
-    question: i18n.__("menu.help"),
-    payload: "CARE_HELP"
-  },
-  {
-    question: i18n.__("menu.suggestion"),
-    payload: "CURATION"
-  }
-];
-
-// Set our Icebreakers upon launch
-GraphApi.setIcebreakers(iceBreakers);
-
-// Set our page subscriptions
-GraphApi.setPageSubscriptions();
-
-// Listen for requests :)
-var listener = app.listen(config.port, function() {
-  console.log(`The app is listening on port ${listener.address().port}`);
-});
+main();
