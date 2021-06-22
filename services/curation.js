@@ -63,30 +63,33 @@ module.exports = class Curation {
     const occasion = payload.split("_")[1].toLowerCase();
     const outfit = `neutral-${occasion}`;
 
-    // NOTE: Products may also be displayed with Product Templates or
-    // Generic Templates. In this example, we use a simple URL link.
+    // NOTE: Products may also be displayed with Product Templates.
     // See the Instagram API Developer Documentation for more information.
 
-    let response = [
-      Response.genText(
-        i18n.__("curation.title", {
-          occasion: i18n.__(occasion)
-        })
-      ),
-      Response.genText(
-        `${i18n.__("curation.shop")}: ${config.shopUrl}/products/${outfit}`
-      ),
-      Response.genQuickReply(i18n.__("curation.anything_else"), [
-        {
-          title: i18n.__("curation.sales"),
-          payload: "CARE_SALES"
-        },
-        {
-          title: i18n.__("curation.about"),
-          payload: "CURATION_ABOUT"
-        }
-      ])
+    let buttons = [
+      {
+        "type": "web_url",
+        "title": i18n.__("curation.shop"),
+        "url": `${config.shopUrl}/products/${outfit}`
+      },
+      {
+      "type": "postback",
+       "title": i18n.__("curation.sales"),
+      "payload": "CARE_SALES"
+      },
+      {
+      "type": "postback",
+       "title": i18n.__("curation.about"),
+      "payload": "CURATION_ABOUT"
+      }
     ];
+
+    let response = Response.genGenericTemplate(
+      `${config.appUrl}/styles/${outfit}.jpg`,
+      i18n.__("curation.title"),
+      i18n.__("curation.subtitle"),
+      buttons
+    );
 
     return response;
   }

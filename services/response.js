@@ -61,12 +61,22 @@ module.exports = class Response {
     return response;
   }
 
-  static genWebUrlButton(title, url) {
+  static genGenericTemplate(image_url, title, subtitle, buttons) {
     let response = {
-      type: "web_url",
-      title: title,
-      url: url,
-      messenger_extensions: true
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title: title,
+              subtitle: subtitle,
+              image_url: image_url,
+              buttons: buttons
+            }
+          ]
+        }
+      }
     };
 
     return response;

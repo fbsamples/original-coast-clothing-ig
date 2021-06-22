@@ -17,8 +17,7 @@ const config = require("./config"),
 
 module.exports = class GraphApi {
   static async callSendApi(requestBody) {
-    let url = new URL(config.mPlatfom);
-    url.pathname += "/me/messages";
+    let url = new URL(`${config.apiUrl}/me/messages`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -33,8 +32,7 @@ module.exports = class GraphApi {
   }
 
   static async getUserProfile(senderIgsid) {
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/${senderIgsid}`;
+    let url = new URL(`${config.apiUrl}/${senderIgsid}`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken,
       fields: "name,profile_pic"
@@ -55,8 +53,7 @@ module.exports = class GraphApi {
   }
 
   static async setIcebreakers(iceBreakers) {
-    let url = new URL(config.mPlatfom);
-    url.pathname += "/me/messenger_profile";
+    let url = new URL(`${config.apiUrl}/me/messenger_profile`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
     });
@@ -77,8 +74,7 @@ module.exports = class GraphApi {
   }
 
   static async setPageSubscriptions() {
-    let url = new URL(config.mPlatfom);
-    url.pathname += `/${config.pageId}/subscribed_apps`;
+    let url = new URL(`${config.apiUrl}/${config.pageId}/subscribed_apps`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken,
       subscribed_fields: "feed"
