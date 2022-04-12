@@ -61,6 +61,10 @@ module.exports = class GraphApi {
       platform: "instagram",
       ice_breakers: iceBreakers
     };
+    
+    console.log(url.href); // DEBUG
+    console.log(json); // DEBUG
+    
     let response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
