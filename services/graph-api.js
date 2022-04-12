@@ -73,19 +73,21 @@ module.exports = class GraphApi {
     }
   }
 
-    static async setPersistentMenu(persistentMenu) {
+}
+
+  static async setPersistentMenu(persistentMenu) {
     let url = new URL(`${config.apiUrl}/me/messenger_profile`);
     url.search = new URLSearchParams({
-      access_token: config.pageAccesToken
+      access_token: config.pageAccesToken,
     });
     let json = {
       platform: "instagram",
-      persistent_menu: persistentMenu
+      persistent_menu: persistentMenu,
     };
     let response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(json)
+      body: JSON.stringify(json),
     });
     if (response.ok) {
       console.log(`Persistent Menu has been set.`);
@@ -94,6 +96,28 @@ module.exports = class GraphApi {
     }
   }
   
+  static async createCarousel(xx) {
+    let url = new URL(`${config.apiUrl}/me/messenger_profile`);
+    url.search = new URLSearchParams({
+      access_token: config.pageAccesToken,
+    });
+    let json = {
+      platform: "instagram",
+      persistent_menu: persistentMenu,
+    };
+    let response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    });
+    if (response.ok) {
+      console.log(`Persistent Menu has been set.`);
+    } else {
+      console.warn(`Error setting Persistent Menu`, response.statusText);
+    }
+  }
+
+
   static async setPageSubscriptions() {
     let url = new URL(`${config.apiUrl}/${config.pageId}/subscribed_apps`);
     url.search = new URLSearchParams({
