@@ -182,6 +182,7 @@ async function main() {
     i18n.setLocale(config.locale);
   }
 
+  // Set our Icebreakers upon launch  
   const iceBreakers = [
     {
       question: i18n.__("menu.support"),
@@ -200,10 +201,9 @@ async function main() {
       payload: "CURATION"
     }
   ];
-
-  // Set our Icebreakers upon launch
   await GraphApi.setIcebreakers(iceBreakers);
 
+  // Set our Persistent Menu upon launch
   const persistentMenu = [
     {
       locale: "default",
@@ -215,19 +215,12 @@ async function main() {
         },
         {
           type: "postback",
-          title: "Outfit suggestions",
+          title: "Restart",
           payload: "CURATION",
-        },
-        {
-          type: "web_url",
-          title: "Shop now",
-          url: "https://www.originalcoastclothing.com/",
         },
       ],
     },
-  ];
-  
-  // Set our Persistent Menu upon launch
+  ];  
   await GraphApi.setPersistentMenu(persistentMenu);
 
   // Set our page subscriptions
