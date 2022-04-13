@@ -215,8 +215,8 @@ async function main() {
         },
         {
           type: "postback",
-          title: "Restart",
-          payload: "CURATION",
+          title: "Start Over",
+          payload: "GET_STARTED",
         },
       ],
     },
