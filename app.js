@@ -117,7 +117,7 @@ app.post("/webhook", (req, res) => {
           "message" in webhookEvent &&
           webhookEvent.message.is_echo === true
         ) {
-          console.log("Got an echo");
+          console.log("Got an echo. Message is from this bot.");
           return;
         }
 
