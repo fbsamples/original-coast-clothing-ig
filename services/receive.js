@@ -206,15 +206,23 @@ module.exports = class Receive {
     return response;
   }
 
-  handlePrivateReply(type, object_id) {
+  handlePrivateReply(type, comment_id, text) {
     // NOTE: For production, private replies must be sent by a human agent.
     // This code is for illustrative purposes only.
     
+    
+    // Handle special case for particular comment message
+    if (text.trim().toLowerCase().includes("iloveit")) {      
+      var message = i18n.__("private_reply.shirt")
+    } else {
+      var message = i18n.__("private_reply.post")      
+    }
+    
     let requestBody = {
       recipient: {
-        [type]: object_id
+        [type]: comment_id
       },
-      message: Response.genText(i18n.__("private_reply.post")),
+      message: Response.genText(message),
       tag: "HUMAN_AGENT"
     };
 
