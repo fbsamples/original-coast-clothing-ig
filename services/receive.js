@@ -83,7 +83,7 @@ module.exports = class Receive {
 
     let response;
 
-    if (message.includes("start over") || message.includes("get started")) {
+    if (message.includes("start over") || message.includes("get started") || message=="hi") {
       response = Response.genNuxMessage(this.user);
     } else if (Number(message)) {
       // Assume numeric input ("123") to be an order number
@@ -209,7 +209,7 @@ module.exports = class Receive {
   handlePrivateReply(type, object_id) {
     // NOTE: For production, private replies must be sent by a human agent.
     // This code is for illustrative purposes only.
-
+    
     let requestBody = {
       recipient: {
         [type]: object_id
