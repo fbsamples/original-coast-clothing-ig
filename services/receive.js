@@ -211,7 +211,7 @@ module.exports = class Receive {
     // This code is for illustrative purposes only.
         
     // Handle special case for particular comment message
-    if (text.trim().toLowerCase().includes("iloveit")) {      
+    if (text.trim().toLowerCase().startsWith("i love it")) {      
       var message = i18n.__("private_reply.shirt")
     } else {
       var message = i18n.__("private_reply.post")      
