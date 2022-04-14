@@ -209,8 +209,7 @@ module.exports = class Receive {
   handlePrivateReply(type, comment_id, text) {
     // NOTE: For production, private replies must be sent by a human agent.
     // This code is for illustrative purposes only.
-    
-    
+        
     // Handle special case for particular comment message
     if (text.trim().toLowerCase().includes("iloveit")) {      
       var message = i18n.__("private_reply.shirt")
