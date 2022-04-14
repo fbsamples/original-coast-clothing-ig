@@ -66,7 +66,7 @@ module.exports = class Curation {
     // NOTE: Products may also be displayed with Product Templates.
     // See the Instagram API Developer Documentation for more information.
 
-    let buttons = [
+    const buttons = [
       {
         "type": "web_url",
         "title": i18n.__("curation.shop"),
@@ -82,7 +82,44 @@ module.exports = class Curation {
        "title": i18n.__("curation.about"),
       "payload": "CURATION_ABOUT"
       }
-    ];
+    ];    
+    const title = i18n.__("curation.title");
+    const subtitle = i18n.__("curation.subtitle");
+    
+    if (occasion == "work") {
+      // Special case for work: show multiple images carousel-style
+          
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: title,
+                subtitle: subtitle,
+                image_url: `${config.shopUrl}/products/neutral-${occasion}.jpg`,
+                buttons: buttons,
+              },
+              {
+                title: title,
+                subtitle: subtitle,
+                image_url: `${config.shopUrl}/products/female-${occasion}.jpg`,
+                buttons: buttons,
+              },
+              {
+                title: title,
+                subtitle: subtitle,
+                image_url: `${config.shopUrl}/products/male-${occasion}.jpg`,
+                buttons: buttons,
+              },
+            ],
+          },
+        },
+      };
+
+      return response;
+    }
 
     let response = Response.genGenericTemplate(
       `${config.appUrl}/styles/${outfit}.jpg`,
