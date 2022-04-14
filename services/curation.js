@@ -98,19 +98,19 @@ module.exports = class Curation {
               {
                 title: title,
                 subtitle: subtitle,
-                image_url: `${config.shopUrl}/products/neutral-${occasion}.jpg`,
+                image_url: `${config.appUrl}/styles/neutral-${occasion}.jpg`,
                 buttons: buttons,
               },
               {
                 title: title,
                 subtitle: subtitle,
-                image_url: `${config.shopUrl}/products/female-${occasion}.jpg`,
+                image_url: `${config.appUrl}/styles/female-${occasion}.jpg`,
                 buttons: buttons,
               },
               {
                 title: title,
                 subtitle: subtitle,
-                image_url: `${config.shopUrl}/products/male-${occasion}.jpg`,
+                image_url: `${config.appUrl}/styles/male-${occasion}.jpg`,
                 buttons: buttons,
               },
             ],
