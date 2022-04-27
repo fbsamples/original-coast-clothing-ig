@@ -83,7 +83,7 @@ module.exports = class Receive {
 
     let response;
 
-    if (message.includes("start over") || message.includes("get started")) {
+    if (message.includes("start over") || message.includes("get started") || message.includes("hi")) {
       response = Response.genNuxMessage(this.user);
     } else if (Number(message)) {
       // Assume numeric input ("123") to be an order number
