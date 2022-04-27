@@ -53,7 +53,7 @@ module.exports = class Receive {
       console.error(error);
       responses = {
         text: `An error has occured: '${error}'. We have been notified and \
-        will fix the issue shortly!`
+        will fix the issue shortly!`,
       };
     }
 
@@ -83,7 +83,11 @@ module.exports = class Receive {
 
     let response;
 
-    if (message.includes("start over") || message.includes("get started") || message.includes("hi")) {
+    if (
+      message.includes("start over") ||
+      message.includes("get started") ||
+      message.includes("hi")
+    ) {
       response = Response.genNuxMessage(this.user);
     } else if (Number(message)) {
       // Assume numeric input ("123") to be an order number
@@ -98,24 +102,24 @@ module.exports = class Receive {
       response = [
         Response.genText(
           i18n.__("fallback.any", {
-            message: this.webhookEvent.message.text
+            message: this.webhookEvent.message.text,
           })
         ),
         Response.genText(i18n.__("get_started.guidance")),
         Response.genQuickReply(i18n.__("get_started.help"), [
           {
             title: i18n.__("menu.suggestion"),
-            payload: "CURATION"
+            payload: "CURATION",
           },
           {
             title: i18n.__("menu.help"),
-            payload: "CARE_HELP"
+            payload: "CARE_HELP",
           },
           {
             title: i18n.__("menu.start_over"),
-            payload: "GET_STARTED"
-          }
-        ])
+            payload: "GET_STARTED",
+          },
+        ]),
       ];
     }
 
@@ -133,12 +137,12 @@ module.exports = class Receive {
     response = Response.genQuickReply(i18n.__("fallback.attachment"), [
       {
         title: i18n.__("menu.help"),
-        payload: "CARE_HELP"
+        payload: "CARE_HELP",
       },
       {
         title: i18n.__("menu.start_over"),
-        payload: "GET_STARTED"
-      }
+        payload: "GET_STARTED",
+      },
     ]);
 
     return response;
@@ -199,7 +203,7 @@ module.exports = class Receive {
       response = Survey.handlePayload(payload);
     } else {
       response = {
-        text: `This is a default postback message for payload: ${payload}!`
+        text: `This is a default postback message for payload: ${payload}!`,
       };
     }
 
@@ -212,10 +216,10 @@ module.exports = class Receive {
 
     let requestBody = {
       recipient: {
-        [type]: object_id
+        [type]: object_id,
       },
       message: Response.genText(i18n.__("private_reply.post")),
-      tag: "HUMAN_AGENT"
+      tag: "HUMAN_AGENT",
     };
 
     GraphApi.callSendApi(requestBody);
@@ -231,9 +235,9 @@ module.exports = class Receive {
     // Construct the message body
     let requestBody = {
       recipient: {
-        id: this.user.igsid
+        id: this.user.igsid,
       },
-      message: response
+      message: response,
     };
 
     setTimeout(() => GraphApi.callSendApi(requestBody), delay);
