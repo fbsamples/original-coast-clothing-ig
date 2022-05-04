@@ -211,22 +211,22 @@ async function main() {
         {
           type: "postback",
           title: "Talk to an agent",
-          payload: "CARE_HELP",
+          payload: "CARE_HELP"
         },
         {
           type: "postback",
           title: "Outfit suggestions",
-          payload: "CURATION",
+          payload: "CURATION"
         },
         {
           type: "web_url",
           title: "Shop now",
-          url: "https://www.originalcoastclothing.com/",
-        },
-      ],
-    },
+          url: "https://www.originalcoastclothing.com/"
+        }
+      ]
+    }
   ];
-  
+
   // Set our Persistent Menu upon launch
   await GraphApi.setPersistentMenu(persistentMenu);
 

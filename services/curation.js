@@ -68,19 +68,19 @@ module.exports = class Curation {
 
     let buttons = [
       {
-        "type": "web_url",
-        "title": i18n.__("curation.shop"),
-        "url": `${config.shopUrl}/products/${outfit}`
+        type: "web_url",
+        title: i18n.__("curation.shop"),
+        url: `${config.shopUrl}/products/${outfit}`
       },
       {
-      "type": "postback",
-       "title": i18n.__("curation.sales"),
-      "payload": "CARE_SALES"
+        type: "postback",
+        title: i18n.__("curation.sales"),
+        payload: "CARE_SALES"
       },
       {
-      "type": "postback",
-       "title": i18n.__("curation.about"),
-      "payload": "CURATION_ABOUT"
+        type: "postback",
+        title: i18n.__("curation.about"),
+        payload: "CURATION_ABOUT"
       }
     ];
 
