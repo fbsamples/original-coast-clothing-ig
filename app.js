@@ -101,7 +101,7 @@ app.post("/webhook", (req, res) => {
         if (entry.changes[0].field === "comments") {
           let change = entry.changes[0].value;
           if (entry.changes[0].value) console.log("Got a comments event");
-          return receiveMessage.handlePrivateReply("comment_id", change.id);
+          return receiveMessage.handlePrivateReply("comment_id", change.id, change.text);
         }
       }
 
@@ -117,7 +117,7 @@ app.post("/webhook", (req, res) => {
           "message" in webhookEvent &&
           webhookEvent.message.is_echo === true
         ) {
-          console.log("Got an echo");
+          console.log("Got an echo. Message is from this bot.");
           return;
         }
 
@@ -182,6 +182,7 @@ async function main() {
     i18n.setLocale(config.locale);
   }
 
+  // Set our Icebreakers upon launch  
   const iceBreakers = [
     {
       question: i18n.__("menu.support"),
@@ -200,10 +201,9 @@ async function main() {
       payload: "CURATION"
     }
   ];
-
-  // Set our Icebreakers upon launch
   await GraphApi.setIcebreakers(iceBreakers);
 
+  // Set our Persistent Menu upon launch
   const persistentMenu = [
     {
       locale: "default",
@@ -215,6 +215,7 @@ async function main() {
         },
         {
           type: "postback",
+<<<<<<< HEAD
           title: "Outfit suggestions",
           payload: "CURATION"
         },
@@ -228,6 +229,14 @@ async function main() {
   ];
 
   // Set our Persistent Menu upon launch
+=======
+          title: "Start Over",
+          payload: "GET_STARTED",
+        },
+      ],
+    },
+  ];  
+>>>>>>> fea59af360b5bd92df603fc37e38d3d76222838f
   await GraphApi.setPersistentMenu(persistentMenu);
 
   // Set our page subscriptions
