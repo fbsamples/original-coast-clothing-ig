@@ -60,7 +60,7 @@ module.exports = class GraphApi {
     let json = {
       platform: "instagram",
       ice_breakers: iceBreakers
-    };    
+    };
     let response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ module.exports = class GraphApi {
     }
   }
 
-    static async setPersistentMenu(persistentMenu) {
+  static async setPersistentMenu(persistentMenu) {
     let url = new URL(`${config.apiUrl}/me/messenger_profile`);
     url.search = new URLSearchParams({
       access_token: config.pageAccesToken
@@ -93,7 +93,7 @@ module.exports = class GraphApi {
       console.warn(`Error setting Persistent Menu`, response.statusText);
     }
   }
-  
+
   static async setPageSubscriptions() {
     let url = new URL(`${config.apiUrl}/${config.pageId}/subscribed_apps`);
     url.search = new URLSearchParams({
