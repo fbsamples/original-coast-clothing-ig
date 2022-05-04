@@ -204,6 +204,32 @@ async function main() {
   // Set our Icebreakers upon launch
   await GraphApi.setIcebreakers(iceBreakers);
 
+  const persistentMenu = [
+    {
+      locale: "default",
+      call_to_actions: [
+        {
+          type: "postback",
+          title: "Talk to an agent",
+          payload: "CARE_HELP"
+        },
+        {
+          type: "postback",
+          title: "Outfit suggestions",
+          payload: "CURATION"
+        },
+        {
+          type: "web_url",
+          title: "Shop now",
+          url: "https://www.originalcoastclothing.com/"
+        }
+      ]
+    }
+  ];
+
+  // Set our Persistent Menu upon launch
+  await GraphApi.setPersistentMenu(persistentMenu);
+
   // Set our page subscriptions
   await GraphApi.setPageSubscriptions();
 
